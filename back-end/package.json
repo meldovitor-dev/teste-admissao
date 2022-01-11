@@ -1,0 +1,22 @@
+{
+  "name": "back-end-atm",
+  "version": "1.0.0",
+  "description": "Teste para simulador de atm",
+  "main": "app",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/app"
+  },
+  "author": "Vitor Reis",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "body-parser": "^1.19.1",
+    "dotenv": "^11.0.0",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.6",
+    "nodemailer": "^6.7.2",
+    "nodemon": "^2.0.15"
+  }
+}
