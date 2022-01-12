@@ -13,8 +13,9 @@ class AdminController {
             const data = {
                 name: req.body.name,
                 email: req.body.email,
-                password: req.body.password,
-                token: ""
+                password: password,
+                token: "",
+                dateCreate: new Date()
             };
 
             await adminModel.create(data);
