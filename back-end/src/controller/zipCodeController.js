@@ -11,7 +11,7 @@ const getAnddres = async (zipCode) => {
             }
         };
         const response = await axios(config);
-        return response;
+        return response.data;
     } catch (err) {
         return null;
     }

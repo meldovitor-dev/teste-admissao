@@ -2,11 +2,15 @@ const mongoose = require('mongoose');
 
 const user = new mongoose.Schema({
     name: String,
-    birthDate: Date,
+    birthDate: String,
     documentNumber: String,
     status: Boolean,
     zipCode: String,
-    address: String
+    address: String,
+    city: String,
+    uf: String,
+    district: String,
+    dateCreate: Date,
 });  
 
 const userModel = mongoose.model('user', user);

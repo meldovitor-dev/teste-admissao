@@ -1,4 +1,4 @@
-const {authentication} = require('../middleware/token');
+const generateToken = require('../middleware/token');
 const adminModel = require('../model/adminModel');
 
 class AdminController {
@@ -49,11 +49,11 @@ class AdminController {
                 email: req.body.email
             });
 
-            if (req.body.senha != login.password) return res.status(404).send('Login invalido');
+            if (!login || req.body.password != login.password || req.body.email != login.email) return res.status(404).send('Login invalido');
 
-            const token = await authentication(login);
+            const token = generateToken(login.email);
 
-            await adminModel.findByIdAndRemove({
+            await adminModel.findByIdAndUpdate({
                 _id: login._id
             }, {
                 token: token

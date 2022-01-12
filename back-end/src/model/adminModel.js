@@ -7,6 +7,6 @@ const adminUser = new mongoose.Schema({
     token: String
 });  
 
-const adminModel = mongoose.model('user', adminUser);
+const adminModel = mongoose.model('admin', adminUser);
 
 module.exports = adminModel;

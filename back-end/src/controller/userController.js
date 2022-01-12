@@ -6,11 +6,11 @@ class UserController {
     async createUser(req, res) {
         try {
             const verify = await userModel.findOne({
-                documentNumber: req.body.cpf
+                documentNumber: req.body.documentNumber
             });
 
             if (verify) {
-                if (verify.status === true) return res.status(404).send('Cliente ja cadastrado!');
+                if (verify.documentNumber === req.body.documentNumber) return res.status(404).send('Cliente ja cadastrado!');
 
                 await userModel.findByIdAndUpdate(verify._id, {
                     status: true
@@ -29,7 +29,11 @@ class UserController {
                 documentNumber: req.body.documentNumber,
                 status: true,
                 zipCode: req.body.zipCode,
-                address: andrres
+                address: andrres.logradouro,
+                city: andrres.localidade,
+                uf: andrres.uf,
+                district: andrres.bairro,
+                dateCreate: new Date()
             };
 
             await userModel.create(data);
@@ -60,7 +64,6 @@ class UserController {
     }
 
     async deleteUser(req, res) {
-
         try {
             const filter = {
                 documentNumber: req.body.documentNumber
