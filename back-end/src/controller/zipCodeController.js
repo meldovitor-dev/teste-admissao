@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-async function getAddress(zipCode) {
+const getAnddres = async (zipCode) => {
     try {
         const config = {
             method: 'get',
@@ -17,4 +17,4 @@ async function getAddress(zipCode) {
     }
 }
 
-module.exports = getAddress;
+module.exports = getAnddres;

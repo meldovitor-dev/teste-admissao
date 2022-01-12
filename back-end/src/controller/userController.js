@@ -1,86 +1,98 @@
 const userModel = require('../model/userModel');
 const getAddress = require('./zipCodeController');
-const crypto = require('crypto');
-const mongoose = require('mongoose');
-const sendEmail = require('./emailController');
-const {authentication} = require('../middleware/token');
 
-async function createUser(req, res) {
+class UserController {
 
-    const session = await mongoose.startSession();
+    async createUser(req, res) {
+        try {
+            const verify = await userModel.findOne({
+                documentNumber: req.body.cpf
+            });
 
-    try {
-        session.startTransaction();
+            if (verify) {
+                if (verify.status === true) return res.status(404).send('Cliente ja cadastrado!');
 
-        const verify = await userModel.findOne({email: req.body.email});
-        if(!verify) return res.status(404).send('Esse email ja esta cadastrado');
+                await userModel.findByIdAndUpdate(verify._id, {
+                    status: true
+                })
 
-        const andrres = await getAddress(req.body.zipCode);
-        if (!andrres) return res.status(404).send('Cep invalido!');
+                return res.status(200).send('Usuario reativado');
+            }
 
-        var random = Math.random().toString();
-        var current_date = (new Date()).valueOf().toString();
 
-        const data = {
-            name: req.body.name,
-            email: req.body.email,
-            birthDate: req.body.birthDate,
-            documentNumber: req.body.documentNumber,
-            token: '',
-            tokenEmail: crypto.createHash('sha1').update(current_date + random).digest('hex'),
-            status: false,
-            zipCode: req.body.zipCode,
-            address: andrres
-        };
-        await userModel.create(data, { session });
+            const andrres = await getAddress(req.body.zipCode);
+            if (!andrres) return res.status(404).send('Cep invalido!');
 
-        const email = await sendEmail(data.email, data.nome, `Para confirmar o seu email basta confirmar esse link:`);
-        if(!email)
-        {
-            await session.abortTransaction();
-            return res.status(500).send({ message: "Ocorreu um erro ao tentar criar o usuario" });
+            const data = {
+                name: req.body.name,
+                birthDate: req.body.birthDate,
+                documentNumber: req.body.documentNumber,
+                status: true,
+                zipCode: req.body.zipCode,
+                address: andrres
+            };
+
+            await userModel.create(data);
+
+            return res.status(201).send('Cadastrado realizado com sucesso');
+
+        } catch (err) {
+            return res.status(500).send(err.message);
         }
+    }
 
-        await session.commitTransaction();
-        session.endSession();
+    async getUsers(req, res) {
+        try {
+            let arrayResponse = [];
 
-        return res.status(201).send('Exames cadastrados com sucesso');
+            const response = await userModel.find();
+            if (!response) return res.status(400).send('Nao possui nenhum cliente cadastrado');
 
-    } catch (err) {
-        return res.status(500).send(err.message);
+            response.filter((x) => {
+                if (x.status) arrayResponse.push(x);
+            });
+
+            return res.status(200).json(arrayResponse);
+
+        } catch (err) {
+            return res.status(500).json(err.message);
+        }
+    }
+
+    async deleteUser(req, res) {
+
+        try {
+            const filter = {
+                documentNumber: req.body.documentNumber
+            };
+            const update = {
+                status: false
+            };
+
+            await userModel.findOneAndUpdate(filter, update);
+
+            return res.status(200).send('Usuario desativado com sucesso');
+
+        } catch (err) {
+            return res.status(500).json(err.message);
+        }
+    }
+
+    async updateUser(req, res) {
+        try {
+            const filter = {
+                documentNumber: req.params.id
+            };
+
+            await userModel.findOneAndUpdate(filter, req.body);
+
+            return res.status(200).send('Usuario atualizado com sucesso');
+
+        } catch (err) {
+            return res.status(500).json(err.message);
+        }
     }
 }
 
-async function confirmEmail(req, res){
-    try {
-        const filter = { tokenEmail: req.params.token_email };
-        const update = { status: true };
 
-        await userModel.findOneAndUpdate(filter, update);
-
-        return res.status(200).send({message:"Cadastro confirmado"});
-
-    } catch (err) {
-        return res.status(500).send("Ocorreu um erro ao validar o email!");
-    }
-}
-
-async function login(req, res) {
-    try {
-        const user = await userModel.findOne({
-            email: req.body.email
-        });
-        if (!user) return res.status(404).send('Login invalido!');
-        if(!user.status) return res.status(404).send('Precisa confirmar seu email');
-
-        const token = await authentication(user);
-        await userModel.findOneAndUpdate({
-            email: req.body.email,
-            token: token
-        });
-
-        return res.status(200).send('Login efetuado!');
-    } catch (err) {
-        return res.status(500).send(err.message);
-    }
-}
+module.exports = UserController;
