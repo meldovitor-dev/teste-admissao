@@ -12,10 +12,10 @@ const serviceOperation = new OperationController();
 router.post('/usuario/cadastro', verify, serviceUser.createUser);
 router.get('/usuario/buscar', verify, serviceUser.getUsers);
 router.put('/usuario/atualizar', verify, serviceUser.updateUser);
-router.delete('/usuario/desativar', verify, serviceUser.deleteUser);
+router.delete('/usuario/desativar/:documentNumber', verify, serviceUser.deleteUser);
 
 router.post('/admin/cadastro', serviceAdmin.createAdmin);
 router.post('/admin/login', serviceAdmin.login);
-router.put('/usuario/resert', serviceAdmin.resetPassword);
+router.put('/usuario/senha', serviceAdmin.resetPassword);
 
 module.exports = router;

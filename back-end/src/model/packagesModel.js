@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const package = new mongoose.Schema({
     amount: Number,
     operationId: String,
-    progress: String,
+    certified: Boolean,
     dateOpen: Date,
     dateClose: Date,
     dateCreate: Date

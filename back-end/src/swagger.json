@@ -1,0 +1,209 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentação teste ATM",
+        "description": "Documentação para o uso da API teste ATM.",
+        "version": "1.0.0",
+        "contact": {
+            "email": "meldovitor@gmail.com"
+        }
+    },
+    "servers": [
+        {
+          "url": "https://development.gigantic-server.com/v1",
+          "description": "Development server"
+        }
+    ],
+    "paths": {
+        "/usuario/cadastro": {
+            "post": {
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Criação de usuário.",
+                "description": "Rota utilizada cadastro do usuário.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "documentNumber": {
+                                        "type": "string"
+                                    },
+                                    "birthDate": {
+                                        "type": "date"
+                                    },
+                                    "zipCode": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Vitor Reis",
+                                    "documentNumber": "12345678900",
+                                    "birthDate": "15/09/2002",
+                                    "zipCode": "40800100"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/usuario/buscar": {
+            "get": {
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Busca por usuários.",
+                "description": "Rota utilizada para buscar todos os usuário."
+            }
+        },
+        "/usuario/desativar/{cpf}": {
+            "delete": {
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Atualizar um usuário.",
+                "description": "Rota utilizada para remover atualizar um usuário cadastrado. O CPF do Usuário deve ser passado como parâmetro na rota."
+            }
+        },
+        "/usuario/atualizar/{cpf}": {
+            "put": {
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Atualizar um usuário.",
+                "description": "Rota utilizada para remover atualizar um usuário cadastrado. Deve ser enviado no corpo o dado que voce quer atualizar",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "documentNumber": {
+                                        "type": "string"
+                                    },
+                                    "birthDate": {
+                                        "type": "date"
+                                    },
+                                    "zipCode": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Vitor Reis",
+                                    "documentNumber": "12345678900",
+                                    "birthDate": "15/09/2002",
+                                    "zipCode": "40800100"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+
+        "/admin/cadastro": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Criação de usuario do tipo admin.",
+                "description": "Rota utilizada para efetuar a criação de um admin.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Vitor",
+                                    "email": "teste@gmail.com",
+                                    "password": "12345"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/login": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Efetuar o login.",
+                "description": "Rota utilizada para realizar o login.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "email": "teste@gmail.com",
+                                    "password": "12345"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/usuario/senha": {
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Atualizar a senha.",
+                "description": "Rota utilizada para atualizar a senha de acesso.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "email": "teste@gmail.com",
+                                    "password": "12345"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

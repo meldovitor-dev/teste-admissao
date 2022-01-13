@@ -66,7 +66,7 @@ class UserController {
     async deleteUser(req, res) {
         try {
             const filter = {
-                documentNumber: req.body.documentNumber
+                documentNumber: req.params.documentNumber
             };
             const update = {
                 status: false
@@ -84,7 +84,7 @@ class UserController {
     async updateUser(req, res) {
         try {
             const filter = {
-                documentNumber: req.params.id
+                documentNumber: req.params.documentNumber
             };
 
             await userModel.findOneAndUpdate(filter, req.body);

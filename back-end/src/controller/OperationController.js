@@ -1,9 +1,12 @@
 const operationModel = require('../model/operationModel');
+const packageModel = require('../model/packagesModel');
 const userModel = require('../model/userModel');
 class OperationController {
-
+    
     async createOperation(req, res) {
         try {
+            const service = new OperationController();
+
             const user = await userModel.findOne({
                 documentNumber: req.params.documentNumber
             });
@@ -28,13 +31,32 @@ class OperationController {
                 dateCreate: new Date()
             };
 
-            await operationModel.create(objOperations);
+            const operation = await operationModel.create(objOperations);
+
+            if (!operation) return res.status(404).send('Ocorreu um erro ao gerar o pacote');
+
+            const teste = await service.createPackage(req.body, operation._id);
 
             return res.status(201).send('Operacao realizada com sucesso');
 
         } catch (err) {
             return res.status(500).send(err.message);
         }
+    }
+
+    async createPackage(dados, id) {
+        const objPackage = {
+            amount: dados.amount,
+            operationId: id,
+            progress: true,
+            dateOpen: new Date(),
+            dateClose: new Date(),
+            dateCreate: new Date()
+        };
+
+        const pkcs = await packageModel.create(objPackage);
+
+        return pkcs;
     }
 
     async getAllOperations(req, res) {
@@ -55,12 +77,29 @@ class OperationController {
     }
 
     async getOperationsByUser(req, res) {
-        
+        try {
+            const service = new OperationController();
+            
+            let arrayResponse = [];
+
+            const operations = await service.getAllOperations();
+
+            operations.filter((x) => {
+                if (x.userId === req.params.id) arrayResponse.push(x)
+            })
+
+            return res.status(200).send(arrayResponse);
+
+        } catch (err) {
+            return res.status(500).send(err.message);
+        }
     }
 
-    async disableOperations(req, res){
+    async disableOperations(req, res) {
         try {
-            await operationModel.findByIdAndUpdate(req.params._id, {status: false});
+            await operationModel.findByIdAndUpdate(req.params._id, {
+                status: false
+            });
             return res.status(200).send('Operacao cancelada');
         } catch (err) {
             return res.status(500).send(err.message);
