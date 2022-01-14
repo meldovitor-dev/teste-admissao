@@ -1,5 +1,7 @@
 const express = require('express');
 const verify = require('../middleware/token')
+const swagger = require('swagger-ui-express');
+const swaggerFile = require('../swagger.json');
 const UserController = require('../controller/UserController');
 const AdminController = require('../controller/AdminController');
 const OperationController = require('../controller/OperationController');
@@ -17,5 +19,8 @@ router.delete('/usuario/desativar/:documentNumber', verify, serviceUser.deleteUs
 router.post('/admin/cadastro', serviceAdmin.createAdmin);
 router.post('/admin/login', serviceAdmin.login);
 router.put('/usuario/senha', serviceAdmin.resetPassword);
+
+router.get('/', swagger.serve, swagger.setup(swaggerFile));
+router.get('/teste', serviceOperation.addToPackage)
 
 module.exports = router;

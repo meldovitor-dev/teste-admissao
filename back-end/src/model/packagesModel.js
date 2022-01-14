@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 
 const package = new mongoose.Schema({
-    amount: Number,
-    operationId: String,
-    certified: Boolean,
+    quantity: Number,
+    type: String,
     dateOpen: Date,
     dateClose: Date,
     dateCreate: Date

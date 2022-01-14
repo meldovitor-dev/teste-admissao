@@ -10,7 +10,7 @@
     },
     "servers": [
         {
-          "url": "https://development.gigantic-server.com/v1",
+          "url": "https://app-frente-corretora.herokuapp.com",
           "description": "Development server"
         }
     ],
