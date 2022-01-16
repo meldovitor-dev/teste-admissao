@@ -7,23 +7,28 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import authService from "../../services/auth.service";
+import { useNavigate } from "react-router-dom";
+import authService from "../../services/admin.service";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const negative = useNavigate();
 
-  const sendRegister = async (name2, email2, password2) => {
+  const sendRegister = async (nameSend, emailSend, passwordSend) => {
     let data = {
-      name: name2,
-      email: email2,
-      password: password2
+      name: nameSend,
+      email: emailSend,
+      password: passwordSend
     }
-
-    const test = await authService.authenticate(data);
-
-    console.log(test);
+    try {
+      const test = await authService.resgister(data);
+      alert('Cadastro realizado')
+      negative('/login')
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   return (

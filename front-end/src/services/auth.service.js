@@ -1,31 +1,27 @@
 import axios from 'axios';
-const apiUrl = "https://app-frente-corretora.herokuapp.com";
+const apiUrl = "http://localhost:8080";
 
 const authService = {
 
-    async authenticate(data) {
-        const endpoint = `${apiUrl}/admin/login`;
+    async createUser(data) {
+        const endpoint = `${apiUrl}/usuario/cadastro`;
         return axios.post(endpoint, data);
     },
 
-    // // Função para salar o usuário logado no local storage
-    // setLoggedUser(data) {
-    //     let parsedData = JSON.stringify(data)
-    //     localStorage.setItem("user", parsedData)
-    // },
+    async getUsers() {
+        const endpoint = `${apiUrl}/usuario/buscar`;
+        return axios.get(endpoint);
+    },
 
-    // // Função responsável por recuperar o usuário logado do local storage
-    // getLoggedUser() {
-    //     let data = localStorage.getItem("user");
-    //     if (!data) return null;
-    //     try {
-    //         let parsedData = JSON.parse(data)
-    //         return parsedData
-    //     } catch (error) {
-    //         console.log(error)
-    //         return null
-    //     }
-    // }
+    async updateUser(data) {
+        const endpoint = `${apiUrl}/usuario/atualizar`;
+        return axios.put(endpoint, data);
+    },
+
+    async deleteUser(data) {
+        const endpoint = `${apiUrl}/usuario/desativar/${data}`;
+        return axios.delete(endpoint);
+    }
 }
 
 export default authService;

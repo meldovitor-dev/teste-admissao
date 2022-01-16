@@ -7,14 +7,26 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import authService from "../../services/admin.service";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const negative = useNavigate();
 
-  const sendLogin = (email2, password2) => {
-    console.log(email2);
-    console.log(password2);
+  const sendLogin = async (emailSend, passwordSend) => {
+    let data = {
+      email: emailSend,
+      password: passwordSend
+    }
+    try {
+      const test = await authService.login(data);
+      console.log(test);
+      //negative('/home')
+    } catch (err) {
+      alert('Usuario invalido');
+    }
   };
   return (
     <Container component="main" maxWidth="xs">
