@@ -34,7 +34,7 @@ class OperationController {
             } else {}
 
         } catch (err) {
-            return res.status(500).json(err.message);
+            return err;
         }
     }
 
@@ -77,7 +77,7 @@ class OperationController {
 
             if (!operation) return res.status(404).send('Ocorreu um erro ao gerar o pacote');
 
-            const packages = await service.createPackage(req.body.type, operation._id);
+            const packages = await service.addToPackage(req.body.type, operation._id);
 
             if (packages) {
                 await operationModel.findByIdAndUpdate(operation._id, {
@@ -101,25 +101,6 @@ class OperationController {
 
         } catch (err) {
             return res.status(500).json(err.message);
-        }
-    }
-
-    async getOperationsByUser(req, res) {
-        try {
-            const service = new OperationController();
-
-            let arrayResponse = [];
-
-            const operations = await service.getAllOperations();
-
-            operations.filter((x) => {
-                if (x.userDocument === req.params.documentNumber) arrayResponse.push(x)
-            });
-
-            return res.status(200).send(arrayResponse);
-
-        } catch (err) {
-            return res.status(500).send(err.message);
         }
     }
 }

@@ -21,6 +21,13 @@ Back-end ->Aqui é mais minha praia onde me sinto mais confortavel, demorei um p
 
 Front-end ->Não é muito meu forte, onde estou acostumado a adicionar ou solucionar algumas features, poucas vezes parei para tirar algo do zero, ficou com uma interface bem simples, mas, funcional nada muito acima da media.
 
+Pontos que poderia ser feito ou melhorado:
+
+* Ter um esqueleto do projeto (designer)
+* Ter uma trativa melhor de cada error
+* Ter uma definicao melhor de pastas
+* Todos os campos ter validacao e mascaras
+
 Swagger - Para acessar a documentção basta acessar a pagina principal do servidor
 
 [MIT](https://choosealicense.com/licenses/mit/)

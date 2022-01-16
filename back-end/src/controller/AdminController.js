@@ -35,15 +35,16 @@ class AdminController {
 
             if (!login || req.body.password != login.password || req.body.email != login.email) return res.status(404).send('Login invalido');
 
-            const token = generateToken(login.email);
+            const token = await generateToken(login.email);
 
-            const respone = await adminModel.findByIdAndUpdate({
+            await adminModel.findByIdAndUpdate({
                 _id: login._id
             }, {
                 token: token
             });
 
-            return res.status(200).json(respone);
+            return res.status(200).send(token);
+            
         } catch (err) {
             return res.status(500).send(err.message);
         }
