@@ -1,48 +1,50 @@
-import {
-  Button,
-  Box,
-  Container,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Box, Grid, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import authService from "../../services/admin.service";
+import { LoadingButton } from "@mui/lab";
+import Dialog from "../../components/Modal";
+import adminService from "../../services/admin.service";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const negative = useNavigate();
 
-  const sendRegister = async (nameSend, emailSend, passwordSend) => {
+  const sendRegister = async () => {
     let data = {
-      name: nameSend,
-      email: emailSend,
-      password: passwordSend
-    }
+      name,
+      email,
+      password,
+    };
     try {
-      const test = await authService.resgister(data);
-      alert('Cadastro realizado')
-      negative('/login')
-    } catch (err) {
-      console.log(err.message);
+      await adminService.resgister(data);
+      negative("/");
+    } catch {
+      setError(true);
     }
   };
-
+  const isValid = name && email && password;
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
+    <>
+      <Dialog
+        open={error}
+        onClose={() => setError(false)}
+        title="Login invalido"
+        menssage="E-mail ou senha incorreto"
+      />
+      <Stack
         sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
           alignItems: "center",
+          width: "100vw",
+          height: "100vh",
+          justifyContent: "center",
         }}
       >
         <Typography component="h1" variant="h5">
-          Sign up
+          Cadastro
         </Typography>
         <Box component="form" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -53,9 +55,7 @@ const Register = () => {
                 fullWidth
                 value={name}
                 label="Name"
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
+                onChange={(e) => setName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -65,9 +65,7 @@ const Register = () => {
                 fullWidth
                 value={email}
                 label="Email"
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -78,30 +76,23 @@ const Register = () => {
                 value={password}
                 label="Password"
                 type="password"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
           </Grid>
-          <Button
+          <LoadingButton
+            loading={loading}
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            onClick={() => sendRegister(name, email, password)}
+            sx={{ mb: 2, mt: 3 }}
+            onClick={sendRegister}
+            disabled={!isValid}
           >
-            Sign Up
-          </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              {/* <Link href="#" variant="body2">
-                Already have an account? Sign in
-              </Link> */}
-            </Grid>
-          </Grid>
+            Cadastro
+          </LoadingButton>
         </Box>
-      </Box>
-    </Container>
+      </Stack>
+    </>
   );
 };
 

@@ -1,8 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material'
 import Login from './pages/Login';
+import ListOperation from './pages/Home'
 import Register from './pages/Register';
-import theme from './components/Theme'
+import theme from './components/Theme';
+import './styles.css'
 
 const App = () => {
   return (
@@ -10,7 +12,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<Login/>}/>
-            <Route path="/login" element={<Login/>}/>
+            <Route path="/principal" element={<ListOperation/>}/>
             <Route path="/cadastro" element={<Register/>}/>
         </Routes>
       </BrowserRouter>

@@ -1,92 +1,82 @@
-import {
-  Button,
-  Box,
-  Container,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, TextField, Typography, Stack } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import authService from "../../services/admin.service";
+import { LoadingButton } from "@mui/lab";
+import adminService from "../../services/admin.service";
+import Dialog from "../../components/Modal";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const negative = useNavigate();
-
-  const sendLogin = async (emailSend, passwordSend) => {
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const sendLogin = async () => {
     let data = {
-      email: emailSend,
-      password: passwordSend
-    }
+      email,
+      password,
+    };
     try {
-      const test = await authService.login(data);
-      console.log(test);
-      //negative('/home')
-    } catch (err) {
-      alert('Usuario invalido');
+      setLoading(true);
+      const response = await adminService.login(data);
+      localStorage.setItem("token", response.data);
+      navigate("/principal");
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
+    <>
+      <Dialog
+        open={error}
+        onClose={() => setError(false)}
+        title="Dados invalido"
+        menssage=""
+      />
+      <Stack
         sx={{
-          marginTop: 10,
-          display: "flex",
-          flexDirection: "column",
           alignItems: "center",
+          width: "100vw",
+          height: "100vh",
+          justifyContent: "center",
         }}
       >
         <Typography component="h1" variant="h5" sx={{ mb: "10px" }}>
           Sign in
         </Typography>
-        <Box component="form" noValidate sx={{ mt: 1 }}>
+        <Box component="form" sx={{ mt: 1 }}>
           <TextField
+            name="email"
+            value={email}
             required
             fullWidth
             label="Email Address"
-            name="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+            onChange={(e) => setEmail(e.target.value)}
             sx={{ mb: "10px" }}
           />
           <TextField
+            name="password"
+            value={password}
             required
             fullWidth
-            name="password"
             type="password"
-            value={password}
-            onChange={(e) => {
-                setPassword(e.target.value);
-            }}
+            onChange={(e) => setPassword(e.target.value)}
           />
-
-          <Button
+          <LoadingButton
+            loading={loading}
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            onClick={() => sendLogin(email, password)}
+            sx={{ mb: 2, mt: 3 }}
+            onClick={sendLogin}
           >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              {/* <Link href="#" variant="body2">
-                      Forgot password?
-                    </Link> */}
-            </Grid>
-            <Grid item>
-              {/* <Link href="#" variant="body2">
-                      {"Don't have an account? Sign Up"}
-                    </Link> */}
-            </Grid>
-          </Grid>
+            Entrar
+          </LoadingButton>
         </Box>
-      </Box>
-    </Container>
+      </Stack>
+    </>
   );
 };
 
