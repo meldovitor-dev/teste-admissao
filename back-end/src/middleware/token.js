@@ -18,4 +18,4 @@ const verify = (req, res, next) =>{
     });
 }
 
-module.exports = generateToken && verify;
+module.exports = {generateToken, verify};

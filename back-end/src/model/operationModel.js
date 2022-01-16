@@ -4,7 +4,6 @@ const operation = new mongoose.Schema({
     userDocument: String,
     packageId: String,
     amount: Number,
-    status: String,
     progress: String,
     dateCreate: Date
 });  

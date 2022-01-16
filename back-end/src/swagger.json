@@ -175,23 +175,43 @@
                 }
             }
         },
-        "/usuario/senha": {
-            "put": {
+
+        
+        "/operacoes/buscar": {
+            "get": {
                 "tags": [
-                    "Admin"
+                    "Operacoes"
                 ],
-                "summary": "Atualizar a senha.",
-                "description": "Rota utilizada para atualizar a senha de acesso.",
+                "summary": "Buscar todas as operacoes realizadas.",
+                "description": "Rota utilizada para buscar operacoes."
+            }
+        },
+        "/operacoes/buscar/{cpf}": {
+            "post": {
+                "tags": [
+                    "Operacoes"
+                ],
+                "summary": "Buscar todas as operacoes de um cliente.",
+                "description": "Rota utilizada para realizar o login."
+            }
+        },
+        "/operacoes/criar/{cpf}": {
+            "post": {
+                "tags": [
+                    "Operacoes"
+                ],
+                "summary": "Criar operacoes",
+                "description": "Rota utilizada para realizar operacoes.",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "email": {
-                                        "type": "string"
+                                    "amount": {
+                                        "type": "number"
                                     },
-                                    "password": {
+                                    "type": {
                                         "type": "string"
                                     }
                                 },

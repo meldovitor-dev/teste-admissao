@@ -1,4 +1,4 @@
-const generateToken = require('../middleware/token');
+const {generateToken} = require('../middleware/token');
 const adminModel = require('../model/adminModel');
 
 class AdminController {
@@ -13,7 +13,7 @@ class AdminController {
             const data = {
                 name: req.body.name,
                 email: req.body.email,
-                password: password,
+                password: req.body.password,
                 token: "",
                 dateCreate: new Date()
             };
@@ -22,23 +22,6 @@ class AdminController {
 
             return res.status(201).send('Cadastrado realizado com sucesso');
 
-        } catch (err) {
-            return res.status(500).send(err.message);
-        }
-    }
-
-    async resetPassword(req, res) {
-        try {
-            const filter = {
-                email: req.body.email
-            };
-            const password = {
-                password: req.body.password
-            };
-
-            await adminModel.findOneAndUpdate(filter, password);
-
-            return res.status(204).send('Senha atualizada');
         } catch (err) {
             return res.status(500).send(err.message);
         }
@@ -54,13 +37,13 @@ class AdminController {
 
             const token = generateToken(login.email);
 
-            await adminModel.findByIdAndUpdate({
+            const respone = await adminModel.findByIdAndUpdate({
                 _id: login._id
             }, {
                 token: token
             });
 
-            return res.status(200).send('Login valido');
+            return res.status(200).json(respone);
         } catch (err) {
             return res.status(500).send(err.message);
         }
