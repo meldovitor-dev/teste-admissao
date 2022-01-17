@@ -71,13 +71,13 @@
                 "description": "Rota utilizada para remover atualizar um usuário cadastrado. O CPF do Usuário deve ser passado como parâmetro na rota."
             }
         },
-        "/usuario/atualizar/{cpf}": {
+        "/usuario/atualizar": {
             "put": {
                 "tags": [
                     "Usuários"
                 ],
                 "summary": "Atualizar um usuário.",
-                "description": "Rota utilizada para remover atualizar um usuário cadastrado. Deve ser enviado no corpo o dado que voce quer atualizar",
+                "description": "Rota utilizada para atualizar um usuário cadastrado. Deve ser enviado no corpo o dado que voce quer atualizar",
                 "requestBody": {
                     "content": {
                         "application/json": {

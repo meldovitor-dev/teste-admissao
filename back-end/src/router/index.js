@@ -13,7 +13,7 @@ const serviceOperation = new OperationController();
 
 router.post('/usuario/cadastro', serviceUser.createUser);
 router.get('/usuario/buscar', serviceUser.getUsers);
-router.put('/usuario/atualizar', serviceUser.updateUser);
+router.put('/usuario/atualizar/:documentNumber', serviceUser.updateUser);
 router.delete('/usuario/desativar/:documentNumber', serviceUser.deleteUser);
 
 router.post('/admin/cadastro', serviceAdmin.createAdmin);

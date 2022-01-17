@@ -43,10 +43,10 @@ const ListOperation = () => {
 
   return (
     <>
-      {/* <CreateOperation
+      <CreateOperation
           open={creating}
           refreshListAfterCreateOperation={refreshListAfterCreateOperation}
-        /> */}
+        />
       <OperationInfo Operation={selectedOperation} onClose={() => setSelectedOperation(null)} />
       <Stack alignItems="center" direction="row" justifyContent="space-between">
         <Typography sx={{ fontSize: "28px " }}>Operacoes:</Typography>

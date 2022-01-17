@@ -12,6 +12,11 @@ const OperationService = {
         const endpoint = `${apiUrl}/pacotes/buscar`;
         return axios.get(endpoint);
     },
+
+    async createOperation(data){
+        const endpoint = `${apiUrl}/operacoes/criar`;
+        return axios.post(endpoint, data);
+    }
 }
 
 export default OperationService;

@@ -20,6 +20,7 @@ import UserInfo from "./UserInfo";
 const ListUsers = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [editUser, setEditUser] = useState(null);
   const [creating, setCreating] = useState(false);
   useEffect(() => {
     const getUsers = async () => {
@@ -56,6 +57,7 @@ const ListUsers = () => {
       <CreateUser
         open={creating}
         refreshListAfterCreateUser={refreshListAfterCreateUser}
+        onClose={() => setEditUser(null)}
       />
       <UserInfo user={selectedUser} onClose={() => setSelectedUser(null)} />
       <Stack alignItems="center" direction="row" justifyContent="space-between">

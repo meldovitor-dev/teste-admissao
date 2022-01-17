@@ -17,18 +17,18 @@ Arquitetura -> Escolhi uma arquitetura um pouco diferente, baseado em camadas co
 
 Banco de dados -> Escolhi usar o mongoDb com a ORM mongoose, consiguindo fazer "relações", utilizando alguns métodos da orm e do mongo.
 
+Front-end -> Não é meu forte, onde estou acostumado a adicionar ou solucionar algumas features, poucas vezes parei para tirar algo do zero, ficou com uma interface bem simples, mas funcional, nada acima da media.
 
-Front-end -> Não é muito meu forte, onde estou acostumado a adicionar ou solucionar algumas features, poucas vezes parei para tirar algo do zero, ficou com uma interface bem simples, mas, funcional nada muito acima da media.
+Swagger -> Para acessar a documentção basta acessar a pagina principal do servidor.
 
 Pontos que poderia ser feito ou melhorado:
 
 * Ter um esqueleto do projeto (front-end)
 * Ter uma trativa melhor de cada error (front-end)
-* Ter uma definicao melhor de pastas (front-end)
+* Ter uma definicao melhor de arquitetura (front-end)
+* Ter telas intuitivas(front-end)
 * Todos os campos ter validacao e mascaras (front-end)
 * Ter uma documentção mais explicativa (back-end)
 
-
-Swagger -> Para acessar a documentção basta acessar a pagina principal do servidor
 
 [MIT](https://choosealicense.com/licenses/mit/)

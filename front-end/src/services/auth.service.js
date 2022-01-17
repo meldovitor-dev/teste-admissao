@@ -13,8 +13,8 @@ const authService = {
         return axios.get(endpoint);
     },
 
-    async updateUser(data) {
-        const endpoint = `${apiUrl}/usuario/atualizar/${data.documentNumber}`;
+    async updateUser(data, documentNumber) {
+        const endpoint = `${apiUrl}/usuario/atualizar/${documentNumber}`;
         return axios.put(endpoint, data);
     },
 

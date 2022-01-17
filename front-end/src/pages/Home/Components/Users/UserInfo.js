@@ -20,13 +20,11 @@ const UserInfo = ({ user, onClose }) => {
     const test = { ...newUser, [fieldName]: event.target.value };
     setNewUser(test);
   };
-
+  
   const update = async () => {
     try {
       setLoading(true);
-      const response = await authService.updateUser(newUser);
-      console.log(response);
-      window.location.reload();
+      await authService.updateUser(newUser, user?.documentNumber);
     } catch {
       setLoading(false);
     } finally {
@@ -35,56 +33,77 @@ const UserInfo = ({ user, onClose }) => {
   };
 
   return (
+    <>
     <Dialog open={!!user} onClose={onClose}>
       <TextField
         name="documentNumber"
         sx={{ mb: "10px" }}
         label="Cpf: "
-        value={user?.documentNumber}
+        placeholder={user?.documentNumber}
+        value={newUser.documentNumber}
+        required
+        fullWidth
         onChange={changeNewUserData}
       ></TextField>
       <TextField
         name="birthDate"
         sx={{ mb: "10px" }}
         label="Data de nascimento: "
-        value={user?.birthDate}
+        placeholder={user?.birthDate}
+        value={newUser.birthDate}
+        required
+        fullWidth
         onChange={changeNewUserData}
       ></TextField>
       <TextField
         name="zipCode"
         sx={{ mb: "10px" }}
         label="Cep: "
-        value={user?.zipCode}
+        placeholder={user?.zipCode}
+        value={newUser.zipCode}
+        required
+        fullWidth
         onChange={changeNewUserData}
       ></TextField>
       <TextField
         name="address"
         sx={{ mb: "10px" }}
         label="Endereco: "
-        value={user?.address}
+        placeholder={user?.address}
+        value={newUser.address}
+        required
+        fullWidth
         onChange={changeNewUserData}
       ></TextField>
       <TextField
         name="city"
         sx={{ mb: "10px" }}
-        value={user?.city}
+        placeholder={user?.city}
+        value={newUser.city}
+        required
+        fullWidth
         onChange={changeNewUserData}
       ></TextField>
       <TextField
         name="district"
         sx={{ mb: "10px" }}
         label="Bairro: "
-        value={user?.district}
+        required
+        fullWidth
+        placeholder={user?.district}
+        value={newUser.district}
         onChange={changeNewUserData}
       ></TextField>
 
       <LoadingButton
         loading={loading}
         fullWidth
+        required
         variant="contained"
         onClick={update}
-      ></LoadingButton>
+      > Atualizar </LoadingButton>
     </Dialog>
+    </>
   );
 };
 
