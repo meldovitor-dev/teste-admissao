@@ -1,6 +1,5 @@
 const operationModel = require('../model/operationModel');
 const packageModel = require('../model/packagesModel');
-const mongoose = require('mongoose');
 const userModel = require('../model/userModel');
 class OperationController {
 
