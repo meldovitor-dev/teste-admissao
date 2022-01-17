@@ -14,7 +14,7 @@ const authService = {
     },
 
     async updateUser(data) {
-        const endpoint = `${apiUrl}/usuario/atualizar`;
+        const endpoint = `${apiUrl}/usuario/atualizar/${data.documentNumber}`;
         return axios.put(endpoint, data);
     },
 

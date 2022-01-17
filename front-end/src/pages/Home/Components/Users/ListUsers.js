@@ -80,7 +80,7 @@ const ListUsers = () => {
               </Stack>
             }
           >
-            <ListItemText primary={x.name} secondary={x.documentNumber} />
+            <ListItemText primary={x.name} secondary={"Cpf: " + x.documentNumber} />
           </ListItem>
         ))}
       </List>

@@ -1,4 +1,4 @@
-import { Button, Box, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Box, Grid, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
@@ -20,10 +20,14 @@ const Register = () => {
       password,
     };
     try {
+      setLoading(true);
       await adminService.resgister(data);
       negative("/");
     } catch {
+      setLoading(false);
       setError(true);
+    } finally {
+      setLoading(false);
     }
   };
   const isValid = name && email && password;
@@ -54,7 +58,7 @@ const Register = () => {
                 required
                 fullWidth
                 value={name}
-                label="Name"
+                label="Nome"
                 onChange={(e) => setName(e.target.value)}
               />
             </Grid>
@@ -74,7 +78,7 @@ const Register = () => {
                 required
                 fullWidth
                 value={password}
-                label="Password"
+                label="Senha"
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
               />

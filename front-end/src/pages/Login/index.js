@@ -22,7 +22,7 @@ const Login = () => {
       localStorage.setItem("token", response.data);
       navigate("/principal");
     } catch {
-      setError(true);
+      setError(false);
     } finally {
       setLoading(false);
     }
@@ -45,7 +45,7 @@ const Login = () => {
         }}
       >
         <Typography component="h1" variant="h5" sx={{ mb: "10px" }}>
-          Sign in
+          Login
         </Typography>
         <Box component="form" sx={{ mt: 1 }}>
           <TextField
@@ -53,7 +53,7 @@ const Login = () => {
             value={email}
             required
             fullWidth
-            label="Email Address"
+            label="Email"
             onChange={(e) => setEmail(e.target.value)}
             sx={{ mb: "10px" }}
           />
@@ -62,6 +62,7 @@ const Login = () => {
             value={password}
             required
             fullWidth
+            label="Senha"
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />

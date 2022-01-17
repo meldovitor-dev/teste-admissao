@@ -1,7 +1,7 @@
 import axios from 'axios';
 const apiUrl = "http://localhost:8080";
 
-const authService = {
+const adminService = {
 
     async resgister(data) {
         const endpoint = `${apiUrl}/admin/cadastro`;
@@ -14,4 +14,4 @@ const authService = {
     }
 }
 
-export default authService;
+export default adminService
