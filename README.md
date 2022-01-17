@@ -21,7 +21,7 @@ Front-end -> Não é meu forte, onde estou acostumado a adicionar ou solucionar 
 
 Swagger -> Para acessar a documentção basta acessar a pagina principal do servidor.
 
-Pontos que poderia ser feito ou melhorado:
+Acabei ficando um pouco atolado de ativades e nao dando conta do teste 100% entao alguns pontos que eu poderia ter feito ou melhorado:
 
 * Ter um esqueleto do projeto (front-end)
 * Ter uma trativa melhor de cada error (front-end)
@@ -30,5 +30,8 @@ Pontos que poderia ser feito ou melhorado:
 * Quando for criar uma operacao ter uma trazer uma lista de clientes cadastrados para atribuir a operacao (front-end)
 * Todos os campos ter validacao e mascaras (front-end)
 * Ter uma documentção mais explicativa (back-end)
+* Redirecionar caso nao esteja logado, no caso as protecoes das rotas (front-end)
+* Ter uma tela para listar todos os pacotes gerados (front-end)
+* Refatorar o pacote caso for maior que o limite estabelecido (back-end)
 
 [MIT](https://choosealicense.com/licenses/mit/)

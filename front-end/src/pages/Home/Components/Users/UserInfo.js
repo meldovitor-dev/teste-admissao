@@ -38,7 +38,6 @@ const UserInfo = ({ user, onClose }) => {
       <TextField
         name="documentNumber"
         sx={{ mb: "10px" }}
-        label="Cpf: "
         placeholder={user?.documentNumber}
         value={newUser.documentNumber}
         required
@@ -48,7 +47,6 @@ const UserInfo = ({ user, onClose }) => {
       <TextField
         name="birthDate"
         sx={{ mb: "10px" }}
-        label="Data de nascimento: "
         placeholder={user?.birthDate}
         value={newUser.birthDate}
         required
@@ -58,7 +56,6 @@ const UserInfo = ({ user, onClose }) => {
       <TextField
         name="zipCode"
         sx={{ mb: "10px" }}
-        label="Cep: "
         placeholder={user?.zipCode}
         value={newUser.zipCode}
         required
@@ -68,7 +65,6 @@ const UserInfo = ({ user, onClose }) => {
       <TextField
         name="address"
         sx={{ mb: "10px" }}
-        label="Endereco: "
         placeholder={user?.address}
         value={newUser.address}
         required
@@ -87,7 +83,6 @@ const UserInfo = ({ user, onClose }) => {
       <TextField
         name="district"
         sx={{ mb: "10px" }}
-        label="Bairro: "
         required
         fullWidth
         placeholder={user?.district}

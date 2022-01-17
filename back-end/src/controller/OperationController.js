@@ -1,25 +1,39 @@
 const operationModel = require('../model/operationModel');
 const packageModel = require('../model/packagesModel');
+const mongoose = require('mongoose');
 const userModel = require('../model/userModel');
 class OperationController {
 
     async addToPackage(type, quantity) {
         try {
             const service = new OperationController();
-
+            const amount = parseInt(quantity)
+            let packages = null;
             const totalMax = 50;
-            const packages = await packageModel.find({
+
+            packages = await packageModel.find({
                 "dateClose": null,
                 "type": type
             });
+            if (packages.length === 1) {
+                packages = await packageModel.create({
+                    quantity: amount,
+                    type: type,
+                    dateOpen: new Date(),
+                    dateClose: null,
+                    dateCreate: new Date()
+                })
+            };
 
-            if ((packages[0].quantity + quantity) <= totalMax) {
-                const newPackage = await packageModel.updateOne(packages, {
-                    quantity: quantity
+            const verify = packages.quantity / totalMax
+
+            if (verify <= totalMax) {
+                await packageModel.updateOne(packages, {
+                    quantity: amount
                 });
-                if (newPackage.quantity === 50) {
+                if (packages.quantity === 50) {
 
-                    const response = await service.closedPackage(newPackage._id);
+                    const response = await service.closedPackage(packages._id);
 
                     if (!response) return false;
 
@@ -31,7 +45,8 @@ class OperationController {
                         dateCreate: new Date()
                     })
                 }
-            } else {}
+                return packages
+            }
 
         } catch (err) {
             return err;
@@ -66,6 +81,11 @@ class OperationController {
                 documentNumber: req.body.documentNumber
             });
 
+            if (!user) return res.status(404).send('Usuario nao cadastrado');
+
+            const packages = await service.addToPackage(req.body.type, req.body.amount);
+            if (!packages) return res.status(404).send('Erro ao gerar o pacote');
+
             const operation = await operationModel.create({
                 userDocumentNumber: user._id,
                 packageId: null,
@@ -75,9 +95,7 @@ class OperationController {
                 dateCreate: new Date()
             });
 
-            if (!operation) return res.status(404).send('Ocorreu um erro ao gerar o pacote');
-
-            const packages = await service.addToPackage(req.body.type, operation._id);
+            if (!operation) return res.status(404).send('Ocorreu um erro ao gerar a operacao');
 
             if (packages) {
                 await operationModel.findByIdAndUpdate(operation._id, {

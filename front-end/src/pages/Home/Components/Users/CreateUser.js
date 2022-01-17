@@ -4,7 +4,7 @@ import authService from "../../../../services/auth.service";
 import { LoadingButton } from "@mui/lab";
 import { useState } from "react";
 
-const CreateUser = ({ open, refreshListAfterCreateUser }) => {
+const CreateUser = ({ open, refreshListAfterCreateUser, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [newUser, setNewUser] = useState({
     name: "",
@@ -31,7 +31,7 @@ const CreateUser = ({ open, refreshListAfterCreateUser }) => {
   };
   return (
     <>
-      <Dialog open={open}>
+      <Dialog open={open} onClose={onClose}>
         <TextField
           name="name"
           value={newUser.name}
