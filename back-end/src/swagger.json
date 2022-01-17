@@ -186,16 +186,7 @@
                 "description": "Rota utilizada para buscar operacoes."
             }
         },
-        "/operacoes/buscar/{cpf}": {
-            "post": {
-                "tags": [
-                    "Operacoes"
-                ],
-                "summary": "Buscar todas as operacoes de um cliente.",
-                "description": "Rota utilizada para realizar o login."
-            }
-        },
-        "/operacoes/criar/{cpf}": {
+        "/operacoes/criar": {
             "post": {
                 "tags": [
                     "Operacoes"
@@ -213,17 +204,31 @@
                                     },
                                     "type": {
                                         "type": "string"
+                                    },
+                                    "documentNumber": {
+                                        "type": "string"
                                     }
                                 },
                                 "example": {
-                                    "email": "teste@gmail.com",
-                                    "password": "12345"
+                                    "amount": "150",
+                                    "type": "50",
+                                    "documentNumber": "12345"
                                 }
                             }
                         }
                     }
                 }
             }
+        },
+        "/pacotes/buscar": {
+            "get": {
+                "tags": [
+                    "Operacoes"
+                ],
+                "summary": "Buscar todos os pacotes criados.",
+                "description": "Rota utilizada para buscar pacotes."
+            }
         }
+
     }
 }

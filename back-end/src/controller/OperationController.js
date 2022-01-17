@@ -63,7 +63,7 @@ class OperationController {
             const service = new OperationController();
 
             const user = await userModel.findOne({
-                documentNumber: req.params.documentNumber
+                documentNumber: req.body.documentNumber
             });
 
             const operation = await operationModel.create({
@@ -98,6 +98,17 @@ class OperationController {
             const allOperations = await operationModel.find();
 
             return res.status(200).json(allOperations);
+
+        } catch (err) {
+            return res.status(500).json(err.message);
+        }
+    }
+
+    async getAllPackages(req, res) {
+        try {
+            const allPackages = await packageModel.find();
+
+            return res.status(200).json(allPackages);
 
         } catch (err) {
             return res.status(500).json(err.message);

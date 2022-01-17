@@ -20,7 +20,9 @@ router.post('/admin/cadastro', serviceAdmin.createAdmin);
 router.post('/admin/login', serviceAdmin.login);
 
 router.get('/operacoes/buscar', serviceOperation.getAllOperations);
-router.post('/operacoes/criar/:documentNumber', serviceOperation.createOperation);
+router.post('/operacoes/criar', serviceOperation.createOperation);
+
+router.get('/pacotes/buscar', serviceOperation.getAllPackages);
 
 router.use('/', swaggerUi.serve);
 router.get('/', swaggerUi.setup(swaggerDocument));
