@@ -10,8 +10,8 @@
     },
     "servers": [
         {
-          "url": "https://app-frente-corretora.herokuapp.com",
-          "description": "Development server"
+            "url": "https://app-frente-corretora.herokuapp.com",
+            "description": "Development server"
         }
     ],
     "paths": {
@@ -109,8 +109,6 @@
                 }
             }
         },
-
-
         "/admin/cadastro": {
             "post": {
                 "tags": [
@@ -175,8 +173,6 @@
                 }
             }
         },
-
-        
         "/operacoes/buscar": {
             "get": {
                 "tags": [
@@ -229,6 +225,5 @@
                 "description": "Rota utilizada para buscar pacotes."
             }
         }
-
     }
 }

@@ -1,26 +1,47 @@
 import axios from 'axios';
 const apiUrl = "http://localhost:8080";
+const token = localStorage.getItem("token");
 
 const authService = {
 
     async createUser(data) {
         const endpoint = `${apiUrl}/usuario/cadastro`;
-        return axios.post(endpoint, data);
+        return axios.post(endpoint, data, {
+            headers: {
+                'authorization': token,
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json'
+            }})
     },
 
     async getUsers() {
         const endpoint = `${apiUrl}/usuario/buscar`;
-        return axios.get(endpoint);
+        return axios.get(endpoint, {
+            headers: {
+                'authorization': token,
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json'
+            }});
     },
 
     async updateUser(data, documentNumber) {
         const endpoint = `${apiUrl}/usuario/atualizar/${documentNumber}`;
-        return axios.put(endpoint, data);
+        return axios.put(endpoint, data, {
+            headers: {
+                'authorization': token,
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json'
+            }});
     },
 
     async deleteUser(data) {
         const endpoint = `${apiUrl}/usuario/desativar/${data}`;
-        return axios.delete(endpoint);
+        return axios.delete(endpoint, {
+            headers: {
+                'authorization': token,
+                'Accept' : 'application/json',
+                'Content-Type': 'application/json'
+            }});
     }
 }
 

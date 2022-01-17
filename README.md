@@ -27,8 +27,8 @@ Pontos que poderia ser feito ou melhorado:
 * Ter uma trativa melhor de cada error (front-end)
 * Ter uma definicao melhor de arquitetura (front-end)
 * Ter telas intuitivas(front-end)
+* Quando for criar uma operacao ter uma trazer uma lista de clientes cadastrados para atribuir a operacao (front-end)
 * Todos os campos ter validacao e mascaras (front-end)
 * Ter uma documentção mais explicativa (back-end)
-
 
 [MIT](https://choosealicense.com/licenses/mit/)

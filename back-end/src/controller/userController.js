@@ -47,7 +47,9 @@ class UserController {
 
     async getUsers(req, res) {
         try {
-            const response = await userModel.find({"status": true});
+            const response = await userModel.find({
+                "status": true
+            });
             if (!response) return res.status(400).send('Nao possui nenhum cliente cadastrado');
             return res.status(200).json(response);
 

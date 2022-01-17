@@ -1,4 +1,6 @@
-const {generateToken} = require('../middleware/token');
+const {
+    generateToken
+} = require('../middleware/token');
 const adminModel = require('../model/adminModel');
 
 class AdminController {
@@ -44,7 +46,7 @@ class AdminController {
             });
 
             return res.status(200).send(token);
-            
+
         } catch (err) {
             return res.status(500).send(err.message);
         }

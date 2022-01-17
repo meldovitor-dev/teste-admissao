@@ -11,18 +11,18 @@ const serviceAdmin = new AdminController();
 const serviceUser = new UserController();
 const serviceOperation = new OperationController();
 
-router.post('/usuario/cadastro', serviceUser.createUser);
-router.get('/usuario/buscar', serviceUser.getUsers);
-router.put('/usuario/atualizar/:documentNumber', serviceUser.updateUser);
-router.delete('/usuario/desativar/:documentNumber', serviceUser.deleteUser);
+router.post('/usuario/cadastro', verify, serviceUser.createUser);
+router.get('/usuario/buscar', verify, serviceUser.getUsers);
+router.put('/usuario/atualizar/:documentNumber', verify, serviceUser.updateUser);
+router.delete('/usuario/desativar/:documentNumber', verify, serviceUser.deleteUser);
 
 router.post('/admin/cadastro', serviceAdmin.createAdmin);
 router.post('/admin/login', serviceAdmin.login);
 
-router.get('/operacoes/buscar', serviceOperation.getAllOperations);
-router.post('/operacoes/criar', serviceOperation.createOperation);
+router.get('/operacoes/buscar', verify, serviceOperation.getAllOperations);
+router.post('/operacoes/criar', verify, serviceOperation.createOperation);
 
-router.get('/pacotes/buscar', serviceOperation.getAllPackages);
+router.get('/pacotes/buscar', verify, serviceOperation.getAllPackages);
 
 router.use('/', swaggerUi.serve);
 router.get('/', swaggerUi.setup(swaggerDocument));
