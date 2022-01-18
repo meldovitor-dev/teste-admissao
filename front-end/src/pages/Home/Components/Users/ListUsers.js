@@ -20,7 +20,6 @@ import UserInfo from "./UserInfo";
 const ListUsers = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [editUser, setEditUser] = useState(null);
   const [creating, setCreating] = useState(false);
   useEffect(() => {
     const getUsers = async () => {
@@ -36,7 +35,6 @@ const ListUsers = () => {
     const newListUsers = [...users, newUser];
     setUsers(newListUsers);
     setCreating(false);
-    window.location.reload();
   };
 
   const deleteUser = async (cpf) => {
@@ -44,7 +42,6 @@ const ListUsers = () => {
       await authService.deleteUser(cpf);
       const newUsers = users.filter((user) => user.documentNumber !== cpf);
       setUsers(newUsers);
-      window.location.reload();
     } catch {}
   };
 
@@ -57,9 +54,10 @@ const ListUsers = () => {
       <CreateUser
         open={creating}
         refreshListAfterCreateUser={refreshListAfterCreateUser}
-        onClose={() => setEditUser(null)}
+        onClose={() => setCreating(null)}
       />
-      <UserInfo user={selectedUser} onClose={() => setSelectedUser(null)} />
+      {selectedUser && <UserInfo user={selectedUser} onClose={() => setSelectedUser(null)} />}
+      
       <Stack alignItems="center" direction="row" justifyContent="space-between">
         <Typography sx={{ fontSize: "28px " }}>Clientes:</Typography>
         <IconButton>

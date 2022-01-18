@@ -4,7 +4,7 @@ import OperationService from "../../../../services/operation.service";
 import { LoadingButton } from "@mui/lab";
 import { useState } from "react";
 
-const CreateOperation = ({ open, refreshListAfterOperation }) => {
+const CreateOperation = ({ open, refreshListAfterOperation, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [newOperation, setOperation] = useState({
     documentNumber: "",
@@ -21,9 +21,7 @@ const CreateOperation = ({ open, refreshListAfterOperation }) => {
     try {
       await OperationService.createOperation(newOperation);
       setLoading(true);
-      window.location.reload();
-    } catch(err) {
-      console.log(err)
+    } catch (err) {
       alert("Error");
     } finally {
       setLoading(false);
@@ -31,7 +29,7 @@ const CreateOperation = ({ open, refreshListAfterOperation }) => {
   };
   return (
     <>
-      <Dialog open={open}>
+      <Dialog open={open} onClose={onClose}>
         <TextField
           name="documentNumber"
           value={newOperation.documentNumber}

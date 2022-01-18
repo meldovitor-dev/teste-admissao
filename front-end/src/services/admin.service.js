@@ -1,16 +1,13 @@
-import axios from 'axios';
-const apiUrl = "https://app-frente-corretora.herokuapp.com";
+import axiosHelper from "../helpers/axios";
 
 const adminService = {
 
     async resgister(data) {
-        const endpoint = `${apiUrl}/admin/cadastro`;
-        return axios.post(endpoint, data);
+        return axiosHelper.post("/admin/cadastro", data);
     },
 
     async login(data) {
-        const endpoint = `${apiUrl}/admin/login`;
-        return axios.post(endpoint, data);
+        return axiosHelper.post("/admin/login", data);
     }
 }
 

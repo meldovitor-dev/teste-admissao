@@ -6,7 +6,7 @@ class OperationController {
     async addToPackage(type, quantity) {
         try {
             const service = new OperationController();
-            const amount = parseInt(quantity)
+            const amount = parseFloat(quantity)
             let packages = null;
             const totalMax = 50;
 
@@ -14,7 +14,7 @@ class OperationController {
                 "dateClose": null,
                 "type": type
             });
-            if (packages.length === 1) {
+            if (packages.length === 0) {
                 packages = await packageModel.create({
                     quantity: amount,
                     type: type,
@@ -28,7 +28,8 @@ class OperationController {
 
             if (verify <= totalMax) {
                 await packageModel.updateOne(packages, {
-                    quantity: amount
+                    quantity: amount,
+                    dateOpen: new Date()
                 });
                 if (packages.quantity === 50) {
 

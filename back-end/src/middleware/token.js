@@ -15,7 +15,7 @@ const verify = (req, res, next) => {
     if (!token) return res.status(401).send('No token provided.');
 
     jwt.verify(token, process.env.SECRET, function (err, decoded) {
-        if (err) return res.status(500).send('Failed to authenticate token.');
+        if (err) return res.status(401).send('Failed to authenticate token.');
         next();
     });
 }

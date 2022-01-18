@@ -34,7 +34,6 @@ const ListOperation = () => {
     const newListOperation = [...operation, newOperation];
     setOperation(newListOperation);
     setCreating(false);
-    window.location.reload();
   };
 
   const openModelToCreateOperation = () => {
@@ -46,6 +45,7 @@ const ListOperation = () => {
       <CreateOperation
           open={creating}
           refreshListAfterCreateOperation={refreshListAfterCreateOperation}
+          onClose={() => setCreating(false)}
         />
       <OperationInfo Operation={selectedOperation} onClose={() => setSelectedOperation(null)} />
       <Stack alignItems="center" direction="row" justifyContent="space-between">

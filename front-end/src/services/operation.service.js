@@ -1,37 +1,17 @@
-import axios from 'axios';
-const apiUrl = "https://app-frente-corretora.herokuapp.com";
-const token = localStorage.getItem("token");
+import axiosHelper from "../helpers/axios";
 
 const OperationService = {
 
     async getOperations() {
-        const endpoint = `${apiUrl}/operacoes/buscar`;
-        return axios.get(endpoint, {
-            headers: {
-                'authorization': token,
-                'Accept' : 'application/json',
-                'Content-Type': 'application/json'
-            }});
+        return axiosHelper.get("/operacoes/buscar");
     },
 
     async getPackages() {
-        const endpoint = `${apiUrl}/pacotes/buscar`;
-        return axios.get(endpoint, {
-            headers: {
-                'authorization': token,
-                'Accept' : 'application/json',
-                'Content-Type': 'application/json'
-            }});
+        return axiosHelper.get("/pacotes/buscar");
     },
 
     async createOperation(data){
-        const endpoint = `${apiUrl}/operacoes/criar`;
-        return axios.post(endpoint, data, {
-            headers: {
-                'authorization': token,
-                'Accept' : 'application/json',
-                'Content-Type': 'application/json'
-            }});
+        return axiosHelper.post("/operacoes/criar", data)
     }
 }
 

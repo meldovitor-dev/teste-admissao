@@ -7,12 +7,12 @@ import { LoadingButton } from "@mui/lab";
 const UserInfo = ({ user, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [newUser, setNewUser] = useState({
-    documentNumber: "",
-    birthDate: "",
-    zipCode: "",
-    address: "",
-    city: "",
-    district: "",
+    documentNumber: user.documentNumber,
+    birthDate: user.birthDate,
+    zipCode: user.zipCode,
+    address: user.address,
+    city: user.city,
+    district: user.district,
   });
 
   const changeNewUserData = (event) => {
@@ -24,7 +24,7 @@ const UserInfo = ({ user, onClose }) => {
   const update = async () => {
     try {
       setLoading(true);
-      await authService.updateUser(newUser, user?.documentNumber);
+      await authService.updateUser(newUser);
     } catch {
       setLoading(false);
     } finally {
@@ -38,7 +38,6 @@ const UserInfo = ({ user, onClose }) => {
       <TextField
         name="documentNumber"
         sx={{ mb: "10px" }}
-        placeholder={user?.documentNumber}
         value={newUser.documentNumber}
         required
         fullWidth
@@ -47,7 +46,6 @@ const UserInfo = ({ user, onClose }) => {
       <TextField
         name="birthDate"
         sx={{ mb: "10px" }}
-        placeholder={user?.birthDate}
         value={newUser.birthDate}
         required
         fullWidth
@@ -56,7 +54,6 @@ const UserInfo = ({ user, onClose }) => {
       <TextField
         name="zipCode"
         sx={{ mb: "10px" }}
-        placeholder={user?.zipCode}
         value={newUser.zipCode}
         required
         fullWidth
@@ -65,7 +62,6 @@ const UserInfo = ({ user, onClose }) => {
       <TextField
         name="address"
         sx={{ mb: "10px" }}
-        placeholder={user?.address}
         value={newUser.address}
         required
         fullWidth
@@ -74,7 +70,6 @@ const UserInfo = ({ user, onClose }) => {
       <TextField
         name="city"
         sx={{ mb: "10px" }}
-        placeholder={user?.city}
         value={newUser.city}
         required
         fullWidth
@@ -85,7 +80,6 @@ const UserInfo = ({ user, onClose }) => {
         sx={{ mb: "10px" }}
         required
         fullWidth
-        placeholder={user?.district}
         value={newUser.district}
         onChange={changeNewUserData}
       ></TextField>

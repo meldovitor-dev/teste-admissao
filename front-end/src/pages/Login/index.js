@@ -21,7 +21,6 @@ const Login = () => {
       const response = await adminService.login(data);
       localStorage.setItem("token", response.data);
       navigate("/principal");
-      window.location.reload();
     } catch {
       setError(false);
     } finally {
